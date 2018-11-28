@@ -1,19 +1,21 @@
 import config from './config.js'
+import Game from './services/game.js'
 import ResourceLoader from './services/resourceLoader.js'
-import Symbol from './models/symbol.js'
 
-
-
+let game = new Game();
 let resourceLoader = new ResourceLoader();
 
-resourceLoader.load(config.sprites.patch).then(sprites => createSymbols(sprites)).catch(()=>{})
 
-
-function createSymbols(sprites){
-	let symbols = [];
-	symbols.push(new Symbol('cofee', 100, 100, sprites[0]));
-	console.log(symbols);
-}
+resourceLoader.load(config)
+.then((resources)=>{
+	game.initResources(resources);
+})
+.then(()=>{
+	game.initObjects();
+})
+.then(()=>{
+	game.start();
+})
 
 
 const app = new PIXI.Application({width: 256, height: 256});
