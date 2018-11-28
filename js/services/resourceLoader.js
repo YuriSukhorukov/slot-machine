@@ -1,15 +1,16 @@
+import Resources from './../models/resources.js'
+
 export default class ResourceLoader {
-	load (patch) {
-		let resources = [1,2,3];
-		return new Promise((resolve, reject) => {
-			if(resources.length > 0){
-				console.log(`loaded successful from: ${patch}`)
-				resolve(resources);
-			}
-			else{
-				console.log(`loaded unsuccessful from: ${patch}`)
-				reject();
-			}
+	constructor(){
+		this.resources = new Resources();
+	}
+	load(config){
+		this.resources.sprites = [1,2,3];
+		this.resources.audio = [4,5,6];
+		console.log(`load resources from: ${config.sprites.patch}`);
+		console.log(`load resources from: ${config.audio.patch}`);
+		return new Promise((resolve, reject)=>{
+			resolve(this.resources);
 		})
 	}
 }
