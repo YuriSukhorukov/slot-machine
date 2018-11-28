@@ -1,15 +1,20 @@
 export default class Resources {
 	constructor (patch) {
 		this._patch = patch;
-		this._storage = [];
+		this._sprites = [];
 	}
 
 	load () {
-		console.log(`loading from ${this._patch}`);
-		this._storage = [1,2,3];
+		this._sprites = [1,2,3];
+		return new Promise((resolve, reject) => {
+			if(this._sprites.length > 0)
+				resolve();
+			else
+				reject();
+		})
 	}
 
-	get storage() {
-		return this._storage;
+	get sprites() {
+		return this._sprites;
 	}
 }
