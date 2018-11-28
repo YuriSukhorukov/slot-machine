@@ -18,15 +18,30 @@ export default class Game {
 		})
 	}
 	initObjects(){
-		let symbols = [];
-		for(let i = 0; i < this.sprites.length; i++){
-			symbols[i] = new Symbol('coffee_cup', this.sprites[i]);
-		}
 
 		let reels = [];
-		const REELS_AMOUNT = 3;
+		const REELS_AMOUNT = 5;
+
 		for(let i = 0; i < REELS_AMOUNT; i++){
+
+			let symbols = [];
+			symbols.push(new Symbol('A', new PIXI.Sprite(this.sprites["./../assets/img/symbol_u.png"])))
+			symbols.push(new Symbol('J', new PIXI.Sprite(this.sprites["./../assets/img/symbol_u.png"])))
+			symbols.push(new Symbol('K', new PIXI.Sprite(this.sprites["./../assets/img/symbol_u.png"])))
+			symbols.push(new Symbol('Q', new PIXI.Sprite(this.sprites["./../assets/img/symbol_u.png"])))
+			symbols.push(new Symbol('7', new PIXI.Sprite(this.sprites["./../assets/img/symbol_u.png"])))
+			symbols.push(new Symbol('8', new PIXI.Sprite(this.sprites["./../assets/img/symbol_u.png"])))
+			symbols.push(new Symbol('9', new PIXI.Sprite(this.sprites["./../assets/img/symbol_u.png"])))
+			symbols.push(new Symbol('10', new PIXI.Sprite(this.sprites["./../assets/img/symbol_u.png"])))
+
+			for(let i = 0; i < symbols.length; i++) {
+				this.app.stage.addChild(symbols[i].view);
+			}
+
 			reels[i] = new Reel(symbols);
+			reels[i].x = 100 * i;
+			console.log(reels[i].x, reels[i].y)
+			this.app.stage.addChild(reels[i].container);
 		}
 
 		this.slot = new Slot(reels);
