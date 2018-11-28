@@ -20,10 +20,15 @@ export default class ResourceLoader {
 	loadSprites(config){
 		let _sprites = {};
 		return new Promise((resolve, reject)=>{
-			PIXI.loader.add(config.sprites).load(()=>{
+			PIXI.loader.add(config.sprites)
+			.on("progress", (loader, resource)=>{
+				console.log(`loading: ${resource.url}`);
+				console.log(`process: ${loader.progress}`);
+			})
+			.load(()=>{
 				Object.keys(PIXI.loader.resources).forEach((key)=>{
 					if(PIXI.loader.resources[key].texture !== undefined){
-						_sprites[key] = new PIXI.Sprite(PIXI.loader.resources[key].texture);
+						_sprites[key] = PIXI.loader.resources[key].texture;
 					}
 				})
 				resolve(_sprites);
