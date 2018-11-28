@@ -9,6 +9,9 @@ export default class Game {
 		this.sprites;
 		this.audio;
 		this.slot;
+
+		this.loopID = '';
+		this.time = 0;
 	}
 	initResources(resources) {
 		return new Promise((resolve, reject)=>{
@@ -53,5 +56,12 @@ export default class Game {
 	}
 	start(){
 		console.log('game started')
+		setInterval(()=>{this.loop()}, 25);
+	}
+	stop(){
+		clearInterval(this.loopID)
+	}
+	loop(){
+		this.slot.twist();
 	}
 }
