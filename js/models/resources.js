@@ -1,6 +1,6 @@
 export default class Resources {
 	constructor(){
-		this.sprites;
-		this.audio;
+		this.sprites = {};
+		this.audio = {};
 	}
 }
