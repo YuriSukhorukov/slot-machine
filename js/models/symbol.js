@@ -1,8 +1,12 @@
 export default class Symbol {
-	constructor (name, width, height, sprite) {
-		this.name = name;
-		this.width = width;
-		this.height = height;
-		this.sprite = sprite;
+	constructor (type, width, height, sprite) {
+		this._type = type;
+		this._width = width;
+		this._height = height;
+		this._sprite = sprite;
+	}
+
+	get type(){
+		return this._type;
 	}
 }
