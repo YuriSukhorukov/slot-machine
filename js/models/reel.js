@@ -27,7 +27,6 @@ export default class Reel {
 	}
 
 	updatePosition(){
-		this.container.x = this._x;
-		this.container.y = this._y;
+		this.container.position.set(this._x, this._y)
 	}
 }

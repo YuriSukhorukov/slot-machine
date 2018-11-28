@@ -22,7 +22,6 @@ export default class Symbol {
 	}
 
 	updatePosition(){
-		this.view.x = this._x;
-		this.view.y = this._y;
+		this.view.position.set(this._x, this._y)
 	}
 }
