@@ -1,7 +1,5 @@
 export default {
-	resources: {
-		sprites: {
-			patch: './../assets/img/'
-		}
+	sprites: {
+		patch: './../assets/img/'
 	}
 }
