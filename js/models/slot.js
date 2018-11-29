@@ -5,8 +5,7 @@ export default class Slot {
 	}
 	twist(){
 		for(let i = 0; i < this.reels.length; i++){
-			this.reels[i].y += 1;
-			console.log(this.reels[i].symbols[1].y)
+			this.reels[i].twist();
 		}
 	}
 }

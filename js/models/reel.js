@@ -3,12 +3,6 @@ export default class Reel {
 		this._x = 0;
 		this._y = 0;
 		this.symbols = symbols;
-		this.container = new PIXI.Container();
-		this.symbols.forEach((symbol, index)=>{
-			symbol.x = 0;
-			symbol.y = 100 * index;
-			this.container.addChild(symbol.view);
-		})
 	}
 
 	get x(){
@@ -27,6 +21,21 @@ export default class Reel {
 	}
 
 	updatePosition(){
-		this.container.position.set(this._x, this._y)
+		for(let i = 0; i < this.symbols.length; i++){
+			this.symbols[i].x = this.x;
+			this.symbols[i].y = i * 100 + this.y;
+		}
+	}
+	twist(){
+		for(let i = 0; i < this.symbols.length; i++){
+			this.symbols[i].x = this.x;
+			this.symbols[i].y += 10;
+		}
+
+		for(let i = 0; i < this.symbols.length; i++){
+			if(this.symbols[i].y > 700){
+				this.symbols[i].y = -100;
+			}
+		}
 	}
 }
