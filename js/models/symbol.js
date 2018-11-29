@@ -2,7 +2,6 @@ export default class Symbol {
 	constructor (type, view) {
 		this._x = 0;
 		this._y = 0;
-		this.type = type;
 		this.view = view;
 	}
 
@@ -23,5 +22,9 @@ export default class Symbol {
 
 	updatePosition(){
 		this.view.position.set(this._x, this._y)
+	}
+	lerp(end_x, percent)
+	{
+	     return (this.x + percent*(end_x - this.x));
 	}
 }

@@ -4,7 +4,7 @@ import ResourceLoader from './services/resourceLoader.js'
 
 const app = new PIXI.Application({width: 500, height: 300});
 document.body.appendChild(app.view);
-
+ 
 let game = new Game(app);
 let resourceLoader = new ResourceLoader();
 

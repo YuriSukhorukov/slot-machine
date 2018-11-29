@@ -10,6 +10,7 @@ export default {
 		"./../assets/img/symbol_k.png",
 		"./../assets/img/symbol_j.png",
 	],
+	// Заглушка для примера
 	audio: {
 		patch: './../assets/audio/'
 	}

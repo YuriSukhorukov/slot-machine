@@ -5,38 +5,32 @@ import Slot from './../models/slot.js'
 export default class Game {
 	constructor(app){
 		this.app = app;
-
 		this.sprites;
 		this.audio;
 		this.slot;
-
-		this.loopID = '';
+		this.spinLoopID = '';
 		this.time = 0;
 	}
 	initResources(resources) {
 		return new Promise((resolve, reject)=>{
 			this.sprites = resources.sprites;
+			// Заглушка для примера
 			this.audio = resources.audio;
 			resolve();
 		})
 	}
 	initObjects(){
-
 		let reels = [];
 		const REELS_AMOUNT = 5;
 
 		for(let i = 0; i < REELS_AMOUNT; i++){
-
 			let symbols = [];
-			symbols.push(new Symbol('A', new PIXI.Sprite(this.sprites["./../assets/img/symbol_a.png"])))
-			symbols.push(new Symbol('7', new PIXI.Sprite(this.sprites["./../assets/img/symbol_7.png"])))
-			symbols.push(new Symbol('10', new PIXI.Sprite(this.sprites["./../assets/img/symbol_10.png"])))
-			symbols.push(new Symbol('8', new PIXI.Sprite(this.sprites["./../assets/img/symbol_8.png"])))
-			symbols.push(new Symbol('9', new PIXI.Sprite(this.sprites["./../assets/img/symbol_9.png"])))
-			symbols.push(new Symbol('O', new PIXI.Sprite(this.sprites["./../assets/img/symbol_o.png"])))
-			symbols.push(new Symbol('I', new PIXI.Sprite(this.sprites["./../assets/img/symbol_i.png"])))
-			symbols.push(new Symbol('K', new PIXI.Sprite(this.sprites["./../assets/img/symbol_k.png"])))
-			symbols.push(new Symbol('J', new PIXI.Sprite(this.sprites["./../assets/img/symbol_j.png"])))
+			let sprites = Object.values(this.sprites);
+
+			for(let i = 0; i < sprites.length; i++){
+				let randomIndex = Math.floor(Math.random() * sprites.length)
+				symbols.push(new Symbol('key', new PIXI.Sprite(sprites[randomIndex])))
+			}
 
 			for(let i = 0; i < symbols.length; i++) {
 				this.app.stage.addChild(symbols[i].view);
@@ -49,6 +43,28 @@ export default class Game {
 
 		this.slot = new Slot(reels);
 
+		var btnSpin = document.createElement("BUTTON");
+		var t = document.createTextNode("SPIN");
+		btnSpin.appendChild(t);
+		document.body.appendChild(btnSpin);
+
+		this.slot.addEventListener('onStopTwist', ()=>{
+			clearInterval(this.spinLoopID);
+			btnSpin.disabled = false;
+		});
+
+		btnSpin.addEventListener('click', ()=>{
+			btnSpin.disabled = true;
+
+			this.spinLoopID = setInterval(()=>{
+				this.slot.twist();
+			}, 10);
+
+			setTimeout(()=>{
+				this.slot.stop();
+			}, 2000)
+		})
+
 		return new Promise((resolve, reject)=>{
 			console.log('objects initialized', this.slot)
 			resolve();
@@ -56,12 +72,5 @@ export default class Game {
 	}
 	start(){
 		console.log('game started')
-		setInterval(()=>{this.loop()}, 5);
-	}
-	stop(){
-		clearInterval(this.loopID)
-	}
-	loop(){
-		this.slot.twist();
 	}
 }
