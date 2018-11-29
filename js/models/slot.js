@@ -1,9 +1,8 @@
 export default class Slot {
 	constructor(reels){
-		this.REEL_SPEED = 12;
-		
 		this.reels = reels;
 
+		this._spinLoopID = '';
 		this._reelsStopedAmount = 0;
 		this._events = {onStopTwist:{}};
 
@@ -11,8 +10,34 @@ export default class Slot {
 			this.reels[i].addEventListener('onStopTwist', ()=>{
 				this.onReelStopTwistEventHandler();
 			});
-			this.reels[i].speed = i / this.REEL_SPEED + i + this.REEL_SPEED;
 		}
+
+		this.btnSpin = document.createElement("BUTTON");
+		var t = document.createTextNode("SPIN");
+		this.btnSpin.appendChild(t);
+		document.body.appendChild(this.btnSpin);
+
+		this.btnSpin.addEventListener('click', ()=>{
+			this.spin();			
+		})
+	}
+
+	spin(){
+		this.btnSpin.disabled = true;
+
+		for(let i = 0; i < this.reels.length; i++){
+			this.reels[i].start();
+		}
+		
+		this._spinLoopID = setInterval(()=>{
+			this.twist();
+		}, 10);
+
+		setTimeout(()=>{
+			this.stop();
+			this.btnSpin.disabled = false;
+			clearInterval(this._spinLoopID);
+		}, 2000)
 	}
 
 	twist(){
@@ -29,21 +54,9 @@ export default class Slot {
 	onReelStopTwistEventHandler(){
 		this._reelsStopedAmount += 1;
 		if(this._reelsStopedAmount == this.reels.length){
-			this.dispatchEvent('onStopTwist');
+			clearInterval(this._spinLoopID);
+			this.btnSpin.disabled = false;
 			this._reelsStopedAmount = 0;
 		}
-	}
-
-	addEventListener(event, eventHandler){
-		if(this._events[event] !== undefined)
-			this._events[event] = eventHandler; 
-		else
-			console.warn(`Event '${event}' not defined.`);
-	}
-	dispatchEvent(event){
-		if(this._events[event] !== undefined)
-			this._events[event]();
-		else
-			console.warn(`Event handler for '${event}' not defined.`);
 	}
 }

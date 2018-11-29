@@ -43,28 +43,6 @@ export default class Game {
 
 		this.slot = new Slot(reels);
 
-		var btnSpin = document.createElement("BUTTON");
-		var t = document.createTextNode("SPIN");
-		btnSpin.appendChild(t);
-		document.body.appendChild(btnSpin);
-
-		this.slot.addEventListener('onStopTwist', ()=>{
-			clearInterval(this.spinLoopID);
-			btnSpin.disabled = false;
-		});
-
-		btnSpin.addEventListener('click', ()=>{
-			btnSpin.disabled = true;
-
-			this.spinLoopID = setInterval(()=>{
-				this.slot.twist();
-			}, 10);
-
-			setTimeout(()=>{
-				this.slot.stop();
-			}, 2000)
-		})
-
 		return new Promise((resolve, reject)=>{
 			console.log('objects initialized', this.slot)
 			resolve();

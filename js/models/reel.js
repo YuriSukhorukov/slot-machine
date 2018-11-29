@@ -2,6 +2,8 @@ export default class Reel {
 	constructor(symbols){
 		this.symbols = symbols;
 		this.speed = 0;
+		this.MAX_SPEED = 12;
+		this.MIN_SPEED = 7;
 		
 		this._x = 0;
 		this._y = 0;
@@ -40,7 +42,9 @@ export default class Reel {
 	lerp(start_x, end_x, percent){
 	     return (start_x + percent*(end_x - start_x));
 	}
-
+	start(){
+		this.speed = Math.random() * (this.MAX_SPEED - this.MIN_SPEED) + this.MIN_SPEED;
+	}
 	stop(){
 		this.positionAlign();
 		this.dispatchEvent('onStopTwist');
