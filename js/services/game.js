@@ -28,14 +28,15 @@ export default class Game {
 		for(let i = 0; i < REELS_AMOUNT; i++){
 
 			let symbols = [];
-			symbols.push(new Symbol('A', new PIXI.Sprite(this.sprites["./../assets/img/symbol_u.png"])))
-			symbols.push(new Symbol('J', new PIXI.Sprite(this.sprites["./../assets/img/symbol_u.png"])))
-			symbols.push(new Symbol('K', new PIXI.Sprite(this.sprites["./../assets/img/symbol_u.png"])))
-			symbols.push(new Symbol('Q', new PIXI.Sprite(this.sprites["./../assets/img/symbol_u.png"])))
-			symbols.push(new Symbol('7', new PIXI.Sprite(this.sprites["./../assets/img/symbol_u.png"])))
-			symbols.push(new Symbol('8', new PIXI.Sprite(this.sprites["./../assets/img/symbol_u.png"])))
-			symbols.push(new Symbol('9', new PIXI.Sprite(this.sprites["./../assets/img/symbol_u.png"])))
-			symbols.push(new Symbol('10', new PIXI.Sprite(this.sprites["./../assets/img/symbol_u.png"])))
+			symbols.push(new Symbol('A', new PIXI.Sprite(this.sprites["./../assets/img/symbol_a.png"])))
+			symbols.push(new Symbol('7', new PIXI.Sprite(this.sprites["./../assets/img/symbol_7.png"])))
+			symbols.push(new Symbol('10', new PIXI.Sprite(this.sprites["./../assets/img/symbol_10.png"])))
+			symbols.push(new Symbol('8', new PIXI.Sprite(this.sprites["./../assets/img/symbol_8.png"])))
+			symbols.push(new Symbol('9', new PIXI.Sprite(this.sprites["./../assets/img/symbol_9.png"])))
+			symbols.push(new Symbol('O', new PIXI.Sprite(this.sprites["./../assets/img/symbol_o.png"])))
+			symbols.push(new Symbol('I', new PIXI.Sprite(this.sprites["./../assets/img/symbol_i.png"])))
+			symbols.push(new Symbol('K', new PIXI.Sprite(this.sprites["./../assets/img/symbol_k.png"])))
+			symbols.push(new Symbol('J', new PIXI.Sprite(this.sprites["./../assets/img/symbol_j.png"])))
 
 			for(let i = 0; i < symbols.length; i++) {
 				this.app.stage.addChild(symbols[i].view);
