@@ -2,6 +2,7 @@ export default class Reel {
 	constructor(symbols){
 		this.symbols = symbols;
 		this.speed = 0;
+		this.stopDeelay = 0;
 		
 		this._x = 0;
 		this._y = 0;
@@ -40,12 +41,19 @@ export default class Reel {
 	lerp(start_x, end_x, percent){
 	     return (start_x + percent*(end_x - start_x));
 	}
-	start(speed){
+	start(speed, stopDeelay){
 		this.speed = speed;
+		this.stopDeelay = stopDeelay;
 	}
 	stop(){
-		this.positionAlign();
-		this.dispatchEvent('onStopTwist');
+		return new Promise((resolve, reject)=>{
+			setTimeout(()=>{
+				this.speed = 0;
+				this.positionAlign();
+				this.dispatchEvent('onStopTwist');
+				resolve();
+			}, this.stopDeelay)
+		})
 	}
 	twist(){
 		for(let i = 0; i < this.symbols.length; i++){
