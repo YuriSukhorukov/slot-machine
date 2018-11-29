@@ -43,8 +43,7 @@ export default class Game {
 
 			reels[i] = new Reel(symbols);
 			reels[i].x = 100 * i;
-			console.log(reels[i].x, reels[i].y)
-			this.app.stage.addChild(reels[i].container);
+			reels[i].y = 0;
 		}
 
 		this.slot = new Slot(reels);
@@ -56,7 +55,7 @@ export default class Game {
 	}
 	start(){
 		console.log('game started')
-		setInterval(()=>{this.loop()}, 25);
+		setInterval(()=>{this.loop()}, 5);
 	}
 	stop(){
 		clearInterval(this.loopID)
