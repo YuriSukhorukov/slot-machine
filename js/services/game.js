@@ -8,8 +8,6 @@ export default class Game {
 		this.sprites;
 		this.audio;
 		this.slot;
-		this.spinLoopID = '';
-		this.time = 0;
 	}
 	initResources(resources) {
 		return new Promise((resolve, reject)=>{
