@@ -40,7 +40,6 @@ export default class Slot {
 
 		setTimeout(()=>{
 			this.stop(0);
-			this.btnSpin.disabled = false;
 		}, this.SPIN_TIME)
 	}
 
@@ -60,6 +59,7 @@ export default class Slot {
 			});
 		}else {
 			clearInterval(this._spinLoopID);
+			this.btnSpin.disabled = false;
 		}
 	}
 
