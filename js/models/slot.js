@@ -9,7 +9,6 @@ export default class Slot {
 
 		this._spinLoopID = '';
 		this._reelsStopedAmount = 0;
-		this._events = {onStopTwist:{}};
 
 		for(let i = 0; i < this.reels.length; i++){
 			this.reels[i].addEventListener('onStopTwist', ()=>{
