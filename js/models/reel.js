@@ -38,9 +38,6 @@ export default class Reel {
 			this.symbols[i].y = 100 * i;
 		}
 	}
-	lerp(start_x, end_x, percent){
-	     return (start_x + percent*(end_x - start_x));
-	}
 	start(speed, stopDeelay){
 		this.speed = speed;
 		this.stopDeelay = stopDeelay;
