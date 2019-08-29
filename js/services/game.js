@@ -1,6 +1,7 @@
 import Symbol from './../models/symbol.js'
 import Reel from './../models/reel.js'
 import Slot from './../models/slot.js'
+import Panel from '../models/panel.js';
 
 export default class Game {
 	constructor(app){
@@ -8,6 +9,7 @@ export default class Game {
 		this.sprites;
 		this.audio;
 		this.slot;
+		this.panel;
 	}
 	initResources(resources) {
 		return new Promise((resolve, reject)=>{
@@ -40,6 +42,14 @@ export default class Game {
 		}
 
 		this.slot = new Slot(reels);
+		this.panel = new Panel();
+
+		this.app.stage.addChild(this.panel.view);
+		this.app.stage.addChild(this.panel.profitText);
+		// this.app.stage.addChild(this.panel.balanceText);
+
+		// this.panel.setBalance(10000);
+		this.panel.setProfit(1000);
 
 		return new Promise((resolve, reject)=>{
 			console.log('objects initialized', this.slot)
