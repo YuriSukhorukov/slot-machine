@@ -1,9 +1,9 @@
 export default class Slot {
 	constructor(reels){
-		this.MIN_SPEED = 7;
-		this.MAX_SPEED = 12;
-		this.SPIN_TIME = 2000;
-		this.REEL_STOP_DEELAY = 250;
+		this.MIN_SPEED = 8;
+		this.MAX_SPEED = 8;
+		this.SPIN_TIME = 3000;
+		this.REEL_STOP_DEELAY = 500;
 
 		this.reels = reels;
 
