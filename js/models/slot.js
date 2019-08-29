@@ -4,6 +4,7 @@ export default class Slot {
 		this.MAX_SPEED = 8;
 		this.SPIN_TIME = 3000;
 		this.REEL_STOP_DEELAY = 500;
+		this.DEEP_BOUNCE = 50;
 
 		this.reels = reels;
 
@@ -31,7 +32,7 @@ export default class Slot {
 
 		for(let i = 0; i < this.reels.length; i++){
 			var speed = this.getTwistSpeed();
-			this.reels[i].start(speed, this.REEL_STOP_DEELAY);
+			this.reels[i].start(speed, this.REEL_STOP_DEELAY, this.DEEP_BOUNCE);
 		}
 		
 		this._spinLoopID = setInterval(()=>{
@@ -57,7 +58,7 @@ export default class Slot {
 			this.reels[i].stop().then(()=>{
 				this.stop(i + 1);
 			});
-		}else {
+		} else if (this.reels.every(reel => {reel.stoped})) {
 			clearInterval(this._spinLoopID);
 			this.btnSpin.disabled = false;
 		}

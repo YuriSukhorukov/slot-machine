@@ -3,7 +3,10 @@ export default class Reel {
 		this.symbols = symbols;
 		this.speed = 0;
 		this.stopDeelay = 0;
+		this.deepBounce = 0;
 		
+		this.stoped = false;
+
 		this._x = 0;
 		this._y = 0;
 		this._events = {onStopTwist: {}}
@@ -35,20 +38,46 @@ export default class Reel {
 			return s1.y < s2.y ? -1 : 1;
 		})
 		for(let i = 0; i < this.symbols.length; i++){
-			this.symbols[i].y = 100 * i;
+			this.symbols[i].alignedPosY = 100 * i;
 		}
 	}
-	start(speed, stopDeelay){
+	positionSetAlign(){
+		for(let i = 0; i < this.symbols.length; i++){
+			this.symbols[i].y = this.symbols[i].alignedPosY-35;
+		}
+	}
+	start(speed, stopDeelay, deepBounce){
 		this.speed = speed;
 		this.stopDeelay = stopDeelay;
+		this.deepBounce = deepBounce;
+		this.stoped = false;
 	}
 	stop(){
+		this.stoped = true;
 		return new Promise((resolve, reject)=>{
 			setTimeout(()=>{
-				this.speed = 0;
 				this.positionAlign();
-				this.dispatchEvent('onStopTwist');
-				resolve();
+				this.positionSetAlign();
+				let bounceAnimationId = setInterval(()=>{
+					for(let i = 0; i < this.symbols.length; i++){
+						if (this.symbols[i].y > this.symbols[i].alignedPosY) {
+							this.speed *= -0.75;
+							break;
+						} else if (this.symbols[i].y < this.symbols[i].alignedPosY) {
+							this.speed *= -0.75;
+							break;
+						}
+					}
+					if (Math.abs(this.speed) < 0.5) {
+						for(let i = 0; i < this.symbols.length; i++){
+							this.symbols[i].y = this.symbols[i].alignedPosY;
+						}
+						this.speed = 0;
+						clearInterval(bounceAnimationId);
+						resolve();
+						this.dispatchEvent('onStopTwist');
+					}
+				}, 80)
 			}, this.stopDeelay)
 		})
 	}
