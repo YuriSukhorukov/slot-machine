@@ -2,7 +2,7 @@ import config from './config.js'
 import Game from './services/game.js'
 import ResourceLoader from './services/resourceLoader.js'
 
-const app = new PIXI.Application({width: 500, height: 300});
+const app = new PIXI.Application({width: 500, height: 400});
 document.body.appendChild(app.view);
  
 let game = new Game(app);

@@ -1,4 +1,4 @@
-export default class Symbol {
+export default class Panel {
 	constructor (type, view) {
 		this._x = 0;
 		this._y = 0;
@@ -23,7 +23,8 @@ export default class Symbol {
 	updatePosition(){
 		this.view.position.set(this._x, this._y)
 	}
-	lerp(end_x, percent){
+	lerp(end_x, percent)
+	{
 	  return (this.x + percent*(end_x - this.x));
 	}
 }

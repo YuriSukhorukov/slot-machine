@@ -41,9 +41,9 @@ export default class Reel {
 			this.symbols[i].alignedPosY = 100 * i;
 		}
 	}
-	positionSetAlign(){
+	positionSetAlign(offset){
 		for(let i = 0; i < this.symbols.length; i++){
-			this.symbols[i].y = this.symbols[i].alignedPosY-35;
+			this.symbols[i].y = this.symbols[i].alignedPosY-offset;
 		}
 	}
 	start(speed, stopDeelay, deepBounce){
@@ -57,7 +57,7 @@ export default class Reel {
 		return new Promise((resolve, reject)=>{
 			setTimeout(()=>{
 				this.positionAlign();
-				this.positionSetAlign();
+				this.positionSetAlign(35);
 				let bounceAnimationId = setInterval(()=>{
 					for(let i = 0; i < this.symbols.length; i++){
 						if (this.symbols[i].y > this.symbols[i].alignedPosY) {
@@ -69,9 +69,7 @@ export default class Reel {
 						}
 					}
 					if (Math.abs(this.speed) < 0.5) {
-						for(let i = 0; i < this.symbols.length; i++){
-							this.symbols[i].y = this.symbols[i].alignedPosY;
-						}
+						this.positionSetAlign(0);
 						this.speed = 0;
 						clearInterval(bounceAnimationId);
 						resolve();
