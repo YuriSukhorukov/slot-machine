@@ -41,8 +41,8 @@ export default class Game {
 			reels[i].y = 0;
 		}
 
-		this.slot = new Slot(reels);
 		this.panel = new Panel();
+		this.slot = new Slot(reels, this.panel);
 
 		this.app.stage.addChild(this.panel.view);
 		this.app.stage.addChild(this.panel.profitText);

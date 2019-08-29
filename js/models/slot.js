@@ -1,12 +1,13 @@
 export default class Slot {
-	constructor(reels){
+	constructor(reels, panel){
 		this.MIN_SPEED = 8;
 		this.MAX_SPEED = 8;
 		this.SPIN_TIME = 3000;
-		this.REEL_STOP_DEELAY = 500;
+		this.REEL_STOP_DEELAY = 100;
 		this.DEEP_BOUNCE = 50;
 
 		this.reels = reels;
+		this.panel = panel;
 
 		this._spinLoopID = '';
 		this._reelsStopedAmount = 0;
@@ -68,8 +69,31 @@ export default class Slot {
 		this._reelsStopedAmount += 1;
 		if(this._reelsStopedAmount == this.reels.length){
 			clearInterval(this._spinLoopID);
-			this.btnSpin.disabled = false;
-			this._reelsStopedAmount = 0;
+			let profit = this.randomInteger(100, 1000);
+			let max_profit = this.panel.profit + profit;
+			let interationsCount = this.panel.totalTime / this.panel.speedProfit;
+			let step = max_profit / interationsCount;
+			step = Math.round(step);
+			let addProfitTimeoutID = setInterval(()=>{
+				console.log(`${this.panel.profit}: ${max_profit}`);
+				if (max_profit == this.panel.profit) {
+					clearInterval(addProfitTimeoutID);
+					this.btnSpin.disabled = false;
+					this._reelsStopedAmount = 0;
+				} else {
+					if (this.panel.profit + step <= max_profit) {
+						this.panel.profit += step;
+					} else {
+						this.panel.profit = max_profit;
+					}
+					this.panel.profitText.text = this.panel.profit;
+				}
+			}, this.panel.speedProfit);
 		}
 	}
+
+	randomInteger(min, max) {
+    let rand = min - 0.5 + Math.random() * (max - min + 1);
+    return Math.round(rand);
+  }
 }
